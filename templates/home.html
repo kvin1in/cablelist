@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="col-md-6 offset-md-3 jumbotron">
+
+            <form method="get">
+                <div class="row">
+                    {{ filter.form }}
+                </div>
+                <button type="submit" class="btn btn-primary">Поиск</button>
+
+            </form>
+
+    </div>
+
+    <div class="col-md-10 offset-md-1">
+        <div class="text-center">
+            <table id="id_list_table" class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Адрес расположения трассы</th>
+                    <th scope="col">Номер этажа</th>
+                    <th scope="col">Номер комнаты</th>
+                    <th scope="col">Наименование коммутатора</th>
+                    <th scope="col">Номер порта коммутатора</th>
+                    <th scope="col">Обозначение идентификатора патч-панели</th>
+                    <th scope="col">Номер или наименование розетки в комнате</th>
+                    <th scope="col">Прочие примечания и отметки</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in filter.qs %}
+
+                    <tr>
+                        <td>{{ item.addr }}</td>
+                        <td>{{ item.floor_num }}</td>
+                        <td>{{ item.room_num }}</td>
+                        <td>{{ item.komm_name }}</td>
+                        <td>{{ item.port_num }}</td>
+                        <td>{{ item.patch_panel }}</td>
+                        <td>{{ item.roz_name }}</td>
+                        <td>{{ item.notes }}</td>
+                        <td><a href="{% url 'item_edit' item_id=item.trace_id %}">Редактировать</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
